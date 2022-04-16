@@ -7,11 +7,10 @@ FILE * wordFile;
 int guessNo = 0;
 
 enum {
-    GAME_END, WRONG, CORRECT, NOT_A_WORD, IS_A_WORD, CORRECT_PLACE, INCORRECT_PLACE, NOT_IN_WORD, DEF
-};
-
-enum {
-    VALID, NUM_INVALID, LEN_INVALID
+    GAME_END, WRONG, CORRECT,   // check word
+    NOT_A_WORD, IS_A_WORD,      // is it a word?
+    CORRECT_PLACE, INCORRECT_PLACE, NOT_IN_WORD, DEF,       // position and condition 
+    VALID, NUM_INVALID, LEN_INVALID                     // is it valid input?
 };
 
 typedef struct {
@@ -32,7 +31,7 @@ int checkIfValid()  {
     {
         if (guessWord[i] >= '0' && guessWord[i] <= '9')
             return(NUM_INVALID);
-        if (guessWord[i] == '\0' || guessWord[i] == '\n' || guessWord[i] == '\t' || guessWord[i] == '\r')
+        if (guessWord[i] == '\0' || guessWord[i] == ' ' || guessWord[i] == '\n' || guessWord[i] == '\t' || guessWord[i] == '\r')
             return(LEN_INVALID);
         if (guessWord[i] >= 'A' && guessWord[i] <= 'Z')
             guessWord[i] = guessWord[i] + ('a' - 'A');
@@ -102,10 +101,8 @@ int checkWord()
     int i;
     if (strcmp(guessWord, chosenWord) == 0)
         return(CORRECT);
-    else 
-    {
-        switch (isItAWord())
-        {
+    else {
+        switch (isItAWord()){
         case IS_A_WORD:
         {   
             guessNo++;
@@ -127,7 +124,6 @@ int checkWord()
                     break;
                 }
             }
-
             break;
         }
         case NOT_A_WORD:
