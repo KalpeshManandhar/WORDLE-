@@ -4,10 +4,10 @@
 
 char chosenWord[6], guessWord[6];
 FILE * wordFile;
-int guessNo = 1;
+int guessNo = 0;
 
 enum {
-    GAME_OVER, WRONG, CORRECT, NOT_A_WORD, IS_A_WORD, CORRECT_PLACE, INCORRECT_PLACE, NOT_IN_WORD, DEF
+    GAME_END, WRONG, CORRECT, NOT_A_WORD, IS_A_WORD, CORRECT_PLACE, INCORRECT_PLACE, NOT_IN_WORD, DEF
 };
 
 enum {
@@ -60,26 +60,46 @@ void readChosenWord (int wordNo) {
     chosenWord[5] = '\0';
 }
 
-int compare(conditions * guess)    {
-    int i, j;
+void countLetters(char letter, int *countGuess, int *countChosen, int pos)
+{
+    int i; 
+    (*countChosen) = 0;
+    (*countGuess) = 0;
+    for (i=0; i<5; i++){
+        if (chosenWord[i] == letter)
+            (*countChosen)++;
+    }
+    for (i=0; i<= pos; i++){
+        if (guessWord[i] == letter)
+            (*countGuess)++;
+    }
+}
+
+void compare(conditions * guess)    {
+    int i, j, countChosen = 0, countGuess = 0;
     for (i = 0; i< 5; i++)
     {
+        countLetters(guessWord[i], &countGuess, &countChosen, i);
+        (guess+i)->condition = DEF;
         for (j=0; j<5; j++)
         {
             if (guessWord[i] == chosenWord[j]){
                 if (i == j)
-                    guess->condition = CORRECT_PLACE;
+                    (guess+i)->condition = CORRECT_PLACE;
                 else
-                    guess->condition = INCORRECT_PLACE;
-            }else 
-                guess->condition = NOT_IN_WORD;
+                    (guess+i)->condition = INCORRECT_PLACE;
+            }
+            if (countChosen < countGuess)
+                (guess+i)->condition = NOT_IN_WORD;
         }
+        if ((guess+i)->condition == DEF)
+            (guess+i)->condition = NOT_IN_WORD;
     }
 }
 
 int checkWord()
 {
-    char buffer[6];
+    int i;
     if (strcmp(guessWord, chosenWord) == 0)
         return(CORRECT);
     else 
@@ -87,16 +107,37 @@ int checkWord()
         switch (isItAWord())
         {
         case IS_A_WORD:
-        {    
+        {   
+            guessNo++;
             conditions guess[5];
-            compare(guess);
+            compare(&guess[0]);
+            for (i=0; i<5; i++){
+                switch (guess[i].condition)
+                {
+                case CORRECT_PLACE:
+                    printf("%d - correct place\n", i);
+                    break;
+                case INCORRECT_PLACE:
+                    printf("%d - incorrect place\n", i);
+                    break;
+                case NOT_IN_WORD:
+                    printf("%d - not in word\n", i);
+                    break;
+                default:
+                    break;
+                }
+            }
+
             break;
         }
         case NOT_A_WORD:
-            printf("\nThat is not a word in the list");
+            printf("\nThat is not a word in the list\n");
         default:
             break;
         }
+        if (guessNo == 5)
+            return(GAME_END);
+        return(WRONG);
     }
     
 }
@@ -106,7 +147,7 @@ int main()
     int wordNo, flag = 1;
     wordNo = randomLineNumber();
     wordFile = fopen("data/words2.txt", "r");
-    readWord(wordNo);
+    readChosenWord(wordNo);
 
     printf("Word is: %s\n", chosenWord);
     printf("Guess the word:\n");
@@ -117,8 +158,22 @@ int main()
         switch (checkIfValid())
         {
         case VALID:
-            /* code */
+        {
+            switch(checkWord())
+            {
+                case CORRECT:   {
+                    printf("CONGRATS YOU WON!");
+                    flag = GAME_END;
+                    break;
+                }
+                case WRONG:
+                    break;
+                case GAME_END:
+                    flag = GAME_END;
+                    break;
+            }
             break;
+        }
         case NUM_INVALID:
         case LEN_INVALID:
             printf("invalid input");
