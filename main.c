@@ -1,21 +1,12 @@
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
+#include <header.h>
 
 char chosenWord[6], guessWord[6];
 FILE * wordFile;
 int guessNo = 0;
 
-enum {
-    GAME_END, WRONG, CORRECT,   // check word
-    NOT_A_WORD, IS_A_WORD,      // is it a word?
-    CORRECT_PLACE, INCORRECT_PLACE, NOT_IN_WORD, DEF,       // position and condition 
-    VALID, NUM_INVALID, LEN_INVALID                     // is it valid input?
-};
-
-typedef struct {
-    int condition;
-}conditions;
 
 int randomLineNumber()
 {
@@ -112,13 +103,13 @@ int checkWord()
                 switch (guess[i].condition)
                 {
                 case CORRECT_PLACE:
-                    printf("%d - correct place\n", i);
+                    // printf("%d - correct place\n", i);
                     break;
                 case INCORRECT_PLACE:
-                    printf("%d - incorrect place\n", i);
+                    // printf("%d - incorrect place\n", i);
                     break;
                 case NOT_IN_WORD:
-                    printf("%d - not in word\n", i);
+                    // printf("%d - not in word\n", i);
                     break;
                 default:
                     break;
@@ -138,7 +129,7 @@ int checkWord()
     
 }
 
-int main()
+int main(int argv, char **args)
 {
     int wordNo, flag = 1;
     wordNo = randomLineNumber();
