@@ -1,15 +1,16 @@
-#include <stdio.h>
-#include <string.h>
 #include <time.h>
-#include <header.h>
+#include "graphics.h"
+#include "header.h"
 
-char chosenWord[6], guessWord[6];
 FILE * wordFile;
+conditions guess[5];
+char chosenWord[6];
+
 int guessNo = 0;
 
+char guesses[6][6] = {"", "", "", "", "", ""};
 
-int randomLineNumber()
-{
+int randomLineNumber(){
     int wordNo;
 	srand(time(NULL));
 	wordNo = rand()%12947;
@@ -97,24 +98,9 @@ int checkWord()
         case IS_A_WORD:
         {   
             guessNo++;
-            conditions guess[5];
             compare(&guess[0]);
-            for (i=0; i<5; i++){
-                switch (guess[i].condition)
-                {
-                case CORRECT_PLACE:
-                    // printf("%d - correct place\n", i);
-                    break;
-                case INCORRECT_PLACE:
-                    // printf("%d - incorrect place\n", i);
-                    break;
-                case NOT_IN_WORD:
-                    // printf("%d - not in word\n", i);
-                    break;
-                default:
-                    break;
-                }
-            }
+            for (i=0; i<5; i++)
+                previous[guessNo-1][i].condition = guess[i].condition;
             break;
         }
         case NOT_A_WORD:
@@ -122,14 +108,14 @@ int checkWord()
         default:
             break;
         }
-        if (guessNo == 5)
-            return(GAME_END);
+        if (guessNo == 6)
+            return(GAME_END_LOSE);
         return(WRONG);
     }
     
 }
 
-int main(int argv, char **args)
+int main(int argc, char **argv)
 {
     int wordNo, flag = 1;
     wordNo = randomLineNumber();
@@ -137,38 +123,38 @@ int main(int argv, char **args)
     readChosenWord(wordNo);
 
     printf("Word is: %s\n", chosenWord);
-    printf("Guess the word:\n");
-    while(flag == 1)
-    {
-        scanf("%s", guessWord);
-        guessWord[5]= '\0';
-        switch (checkIfValid())
-        {
-        case VALID:
-        {
-            switch(checkWord())
-            {
-                case CORRECT:   {
-                    printf("CONGRATS YOU WON!");
-                    flag = GAME_END;
-                    break;
-                }
-                case WRONG:
-                    break;
-                case GAME_END:
-                    flag = GAME_END;
-                    break;
-            }
-            break;
-        }
-        case NUM_INVALID:
-        case LEN_INVALID:
-            printf("invalid input");
-        default:
-            break;
-        }
+    // printf("Guess the word:\n");
+    // while(flag == 1)
+    // {
+    //     scanf("%s", guessWord);
+    //     guessWord[5]= '\0';
+    //     switch (checkIfValid())
+    //     {
+    //     case VALID:
+    //     {
+    //         switch(checkWord())
+    //         {
+    //             case CORRECT:   {
+    //                 printf("CONGRATS YOU WON!");
+    //                 flag = GAME_END_WIN;
+    //                 break;
+    //             }
+    //             case WRONG:
+    //                 break;
+    //             case GAME_END_LOSE:
+    //                 flag = GAME_END_LOSE;
+    //                 break;
+    //         }
+    //         break;
+    //     }
+    //     case NUM_INVALID:
+    //     case LEN_INVALID:
+    //         printf("invalid input");
+    //     default:
+    //         break;
+    //     }
 
-    }
-
+    // }
+    gameLoop(argc, argv);
     return(0);
 }
