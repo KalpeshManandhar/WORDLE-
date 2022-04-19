@@ -8,8 +8,6 @@ char chosenWord[6];
 
 int guessNo = 0;
 
-
-
 int randomLineNumber(){
     int wordNo;
 	srand(time(NULL));
