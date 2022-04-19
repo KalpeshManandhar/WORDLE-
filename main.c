@@ -8,7 +8,7 @@ char chosenWord[6];
 
 int guessNo = 0;
 
-char guesses[6][6] = {"", "", "", "", "", ""};
+
 
 int randomLineNumber(){
     int wordNo;
