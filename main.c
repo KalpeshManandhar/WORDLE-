@@ -97,6 +97,7 @@ int checkWord(int *charNo)
             guesses[guessNo][i] = guessWord[i]; 
             previous[guessNo][i].condition = CORRECT_PLACE;
         }
+        guessNo++;
         return(CORRECT);
     }
     else {
@@ -119,7 +120,6 @@ int checkWord(int *charNo)
             return(GAME_END_LOSE);
         return(WRONG);
     }
-    
 }
 
 int main(int argc, char **argv)

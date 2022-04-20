@@ -42,28 +42,28 @@ void drawBoxes(SDL_Renderer *renderer)
     }
 }
 
-void changeColor(SDL_Renderer *renderer, conditions cond[])
+void changeColor(SDL_Renderer *renderer, conditions *cond, int row)
 {
     int i;
     SDL_Rect box;
     box.h = 80;
     box.w = 80;
-    box.y = 30 + (guessNo-1) * 90;
+    box.y = 30 + (row) * 90;
     for (i=0; i<5; i++){
         switch ((cond+i)->condition)
-            {
-            case CORRECT_PLACE:
-                SDL_SetRenderDrawColor(renderer, green.r, green.g, green.b, 1);
-                break;
-            case INCORRECT_PLACE:
-                SDL_SetRenderDrawColor(renderer, orange.r, orange.g, orange.b, 1);
-                break;
-            case NOT_IN_WORD:
-                SDL_SetRenderDrawColor(renderer, grey.r, grey.g, grey.b, 1);
-                break;
-            default:
-                break;
-            } 
+        {
+        case CORRECT_PLACE:
+            SDL_SetRenderDrawColor(renderer, green.r, green.g, green.b, 1);
+            break;
+        case INCORRECT_PLACE:
+            SDL_SetRenderDrawColor(renderer, orange.r, orange.g, orange.b, 1);
+            break;
+        case NOT_IN_WORD:
+            SDL_SetRenderDrawColor(renderer, grey.r, grey.g, grey.b, 1);
+            break;
+        default:
+            break;
+        } 
         box.x = 30 + i * 90;
         SDL_RenderFillRect(renderer, &box);
     }
@@ -109,9 +109,8 @@ int gameLoop(int argc, char **argv){
         drawBoxes(renderer);
         for (i=0; i< guessNo; i++)
         {
-            changeColor(renderer,previous[i]);
+            changeColor(renderer,previous[i], i);
         }
-        i=0;
         SDL_RenderPresent(renderer);
         frameTime = SDL_GetTicks() - frameStart;
         if (FRAME_DELAY > frameTime)
