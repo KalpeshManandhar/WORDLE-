@@ -16,7 +16,7 @@ const color green = {0, 210, 0};
 const color orange = {210, 150, 20};
 const color grey = {100, 100, 100};  
 
-conditions previous[6][5] ={{DEF, DEF,DEF,DEF,DEF},{DEF, DEF,DEF,DEF,DEF},{DEF, DEF,DEF,DEF,DEF},{DEF, DEF,DEF,DEF,DEF},{DEF, DEF,DEF,DEF,DEF},{DEF, DEF,DEF,DEF,DEF}};
+conditions previous[6][5]; // ={{DEF, DEF,DEF,DEF,DEF},{DEF, DEF,DEF,DEF,DEF},{DEF, DEF,DEF,DEF,DEF},{DEF, DEF,DEF,DEF,DEF},{DEF, DEF,DEF,DEF,DEF},{DEF, DEF,DEF,DEF,DEF}};
 
 void closeEverything(SDL_Texture* texture, SDL_Renderer *renderer, SDL_Window *window)
 {
@@ -42,7 +42,7 @@ void drawBoxes(SDL_Renderer *renderer)
     }
 }
 
-void changeColor(SDL_Renderer *renderer, conditions *cond)
+void changeColor(SDL_Renderer *renderer, conditions cond[])
 {
     int i;
     SDL_Rect box;
@@ -95,8 +95,10 @@ int gameLoop(int argc, char **argv){
         case SDL_QUIT:
             closeEverything(texture, renderer, window);
             break;
-        case SDL_KEYDOWN:
-            keyInput(&event,&charNo);
+        case SDL_KEYDOWN:{
+            if (gameRun != GAME_END_WIN && gameRun != GAME_END_LOSE)
+                keyInput(&event,&charNo);
+        }
         default:
             break;
         }
@@ -109,6 +111,7 @@ int gameLoop(int argc, char **argv){
         {
             changeColor(renderer,previous[i]);
         }
+        i=0;
         SDL_RenderPresent(renderer);
         frameTime = SDL_GetTicks() - frameStart;
         if (FRAME_DELAY > frameTime)

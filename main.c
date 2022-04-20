@@ -72,33 +72,42 @@ void compare(conditions * guess)    {
         (guess+i)->condition = DEF;
         for (j=0; j<5; j++)
         {
+            if (countChosen < countGuess)
+                (guess+i)->condition = NOT_IN_WORD;
             if (guessWord[i] == chosenWord[j]){
                 if (i == j)
                     (guess+i)->condition = CORRECT_PLACE;
-                else
-                    (guess+i)->condition = INCORRECT_PLACE;
+                else{
+                    if ((guess+i)->condition != CORRECT_PLACE)
+                        (guess+i)->condition = INCORRECT_PLACE;
+                }
             }
-            if (countChosen < countGuess)
-                (guess+i)->condition = NOT_IN_WORD;
         }
         if ((guess+i)->condition == DEF)
             (guess+i)->condition = NOT_IN_WORD;
     }
 }
 
-int checkWord()
+int checkWord(int *charNo)
 {
     int i;
     if (strcmp(guessWord, chosenWord) == 0)
+    {
+        for (i=0; i<5; i++){
+            guesses[guessNo][i] = guessWord[i]; 
+            previous[guessNo][i].condition = CORRECT_PLACE;
+        }
         return(CORRECT);
+    }
     else {
         switch (isItAWord()){
         case IS_A_WORD:
         {   
-            guessNo++;
+            (*charNo)=0;
             compare(&guess[0]);
             for (i=0; i<5; i++)
-                previous[guessNo-1][i].condition = guess[i].condition;
+                previous[guessNo][i].condition = guess[i].condition;
+            guessNo++;
             break;
         }
         case NOT_A_WORD:

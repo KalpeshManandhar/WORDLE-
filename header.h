@@ -25,6 +25,6 @@ extern char guessWord[6];
 
 
 int isItAWord();
-int checkWord();
+int checkWord(int *charNo);
 void compare(conditions * guess);
 int checkWord();

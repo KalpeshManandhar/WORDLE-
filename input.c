@@ -11,7 +11,6 @@ void keyInput (SDL_Event* event, int *charNo){
     {
     case SDLK_a:{
         if ((*charNo)<5){
-            guesses[guessNo-1][*charNo] = 'a';
             guessWord[*charNo] = 'a';
             printf("a");
             (*charNo)++;
@@ -20,7 +19,6 @@ void keyInput (SDL_Event* event, int *charNo){
     }
     case SDLK_b:{
         if ((*charNo)<5){
-            guesses[guessNo-1][*charNo] = 'b';
             guessWord[*charNo] = 'b';
             printf("b");
             (*charNo)++;
@@ -29,7 +27,6 @@ void keyInput (SDL_Event* event, int *charNo){
     }
     case SDLK_c:{
         if ((*charNo)<5){
-            guesses[guessNo-1][*charNo] = 'c';
             guessWord[*charNo] = 'c';
             printf("c");
             (*charNo)++;
@@ -38,7 +35,6 @@ void keyInput (SDL_Event* event, int *charNo){
     }
     case SDLK_d:{
         if ((*charNo)<5){
-            guesses[guessNo-1][*charNo] = 'd';
             guessWord[*charNo] = 'd';
             printf("d");
             (*charNo)++;
@@ -47,7 +43,6 @@ void keyInput (SDL_Event* event, int *charNo){
     }
     case SDLK_e:{
         if ((*charNo)<5){
-            guesses[guessNo-1][*charNo] = 'e';
             guessWord[*charNo] = 'e';
             printf("e");
             (*charNo)++;
@@ -56,7 +51,6 @@ void keyInput (SDL_Event* event, int *charNo){
     }
     case SDLK_f:{
         if ((*charNo)<5){
-            guesses[guessNo-1][*charNo] = 'f';
             guessWord[*charNo] = 'f';
             printf("f");
             (*charNo)++;
@@ -65,7 +59,6 @@ void keyInput (SDL_Event* event, int *charNo){
     }
     case SDLK_g:{
         if ((*charNo)<5){
-            guesses[guessNo-1][*charNo] = 'g';
             guessWord[*charNo] = 'g';
             printf("g");
             (*charNo)++;
@@ -74,7 +67,6 @@ void keyInput (SDL_Event* event, int *charNo){
     }
     case SDLK_h:{
         if ((*charNo)<5){
-            guesses[guessNo-1][*charNo] = 'h';
             guessWord[*charNo] = 'h';
             printf("h");
             (*charNo)++;
@@ -83,7 +75,6 @@ void keyInput (SDL_Event* event, int *charNo){
     }
     case SDLK_i:{
         if ((*charNo)<5){
-            guesses[guessNo-1][*charNo] = 'i';
             guessWord[*charNo] = 'i';
             printf("i");
             (*charNo)++;
@@ -92,7 +83,6 @@ void keyInput (SDL_Event* event, int *charNo){
     }
     case SDLK_j:{
         if ((*charNo)<5){
-            guesses[guessNo-1][*charNo] = 'j';
             guessWord[*charNo] = 'j';
             printf("j");
             (*charNo)++;
@@ -101,7 +91,6 @@ void keyInput (SDL_Event* event, int *charNo){
     }
     case SDLK_k:{
         if ((*charNo)<5){
-            guesses[guessNo-1][*charNo] = 'k';
             guessWord[*charNo] = 'k';
             printf("k");
             (*charNo)++;
@@ -110,7 +99,6 @@ void keyInput (SDL_Event* event, int *charNo){
     }
     case SDLK_l:{
         if ((*charNo)<5){
-            guesses[guessNo-1][*charNo] = 'l';
             guessWord[*charNo] = 'l';
             printf("l");
             (*charNo)++;
@@ -119,7 +107,6 @@ void keyInput (SDL_Event* event, int *charNo){
     }
     case SDLK_m:{
         if ((*charNo)<5){
-            guesses[guessNo-1][*charNo] = 'm';
             guessWord[*charNo] = 'm';
             printf("m");
             (*charNo)++;
@@ -128,7 +115,6 @@ void keyInput (SDL_Event* event, int *charNo){
     }
     case SDLK_n:{
         if ((*charNo)<5){
-            guesses[guessNo-1][*charNo] = 'n';
             guessWord[*charNo] = 'n';
             printf("n");
             (*charNo)++;
@@ -137,7 +123,6 @@ void keyInput (SDL_Event* event, int *charNo){
     }
     case SDLK_o:{
         if ((*charNo)<5){
-            guesses[guessNo-1][*charNo] = 'o';
             guessWord[*charNo] = 'o';
             printf("o");
             (*charNo)++;
@@ -146,7 +131,6 @@ void keyInput (SDL_Event* event, int *charNo){
     }
     case SDLK_p:{
         if ((*charNo)<5){
-            guesses[guessNo-1][*charNo] = 'p';
             guessWord[*charNo] = 'p';
             printf("p");
             (*charNo)++;
@@ -155,7 +139,6 @@ void keyInput (SDL_Event* event, int *charNo){
     }
     case SDLK_q:{
         if ((*charNo)<5){
-            guesses[guessNo-1][*charNo] = 'q';
             guessWord[*charNo] = 'q';
             printf("q");
             (*charNo)++;
@@ -164,7 +147,6 @@ void keyInput (SDL_Event* event, int *charNo){
     }
     case SDLK_r:{
         if ((*charNo)<5){
-            guesses[guessNo-1][*charNo] = 'r';
             guessWord[*charNo] = 'r';
             printf("r");
             (*charNo)++;
@@ -173,7 +155,6 @@ void keyInput (SDL_Event* event, int *charNo){
     }
     case SDLK_s:{
         if ((*charNo)<5){
-            guesses[guessNo-1][*charNo] = 's';
             guessWord[*charNo] = 's';
             printf("s");
             (*charNo)++;
@@ -182,7 +163,6 @@ void keyInput (SDL_Event* event, int *charNo){
     }
     case SDLK_t:{
         if ((*charNo)<5){
-            guesses[guessNo-1][*charNo] = 't';
             guessWord[*charNo] = 't';
             printf("t");
             (*charNo)++;
@@ -191,7 +171,6 @@ void keyInput (SDL_Event* event, int *charNo){
     }
     case SDLK_u:{
         if ((*charNo)<5){
-            guesses[guessNo-1][*charNo] = 'u';
             guessWord[*charNo] = 'u';
             printf("u");
             (*charNo)++;
@@ -200,7 +179,6 @@ void keyInput (SDL_Event* event, int *charNo){
     }
     case SDLK_v:{
         if ((*charNo)<5){
-            guesses[guessNo-1][*charNo] = 'v';
             guessWord[*charNo] = 'v';
             printf("v");
             (*charNo)++;
@@ -209,7 +187,6 @@ void keyInput (SDL_Event* event, int *charNo){
     }
     case SDLK_w:{
         if ((*charNo)<5){
-            guesses[guessNo-1][*charNo] = 'w';
             guessWord[*charNo] = 'w';
             printf("w");
             (*charNo)++;
@@ -218,7 +195,6 @@ void keyInput (SDL_Event* event, int *charNo){
     }
     case SDLK_x:{
         if ((*charNo)<5){
-            guesses[guessNo-1][*charNo] = 'x';
             guessWord[*charNo] = 'x';
             printf("x");
             (*charNo)++;
@@ -227,7 +203,6 @@ void keyInput (SDL_Event* event, int *charNo){
     }
     case SDLK_y:{
         if ((*charNo)<5){
-            guesses[guessNo-1][*charNo] = 'y';
             guessWord[*charNo] = 'y';
             printf("y");
             (*charNo)++;
@@ -236,7 +211,6 @@ void keyInput (SDL_Event* event, int *charNo){
     }
     case SDLK_z:{
         if ((*charNo)<5){
-            guesses[guessNo-1][*charNo] = 'z';
             guessWord[*charNo] = 'z';
             printf("z");
             (*charNo)++;
@@ -246,15 +220,13 @@ void keyInput (SDL_Event* event, int *charNo){
     case SDLK_RETURN:  //enter key
     {
         if ((*charNo)==5){
-            guesses[guessNo][5] = '\0';
             printf("ENter");
             guessWord[5] = '\0';
             printf("\n%s", guessWord);
-            (*charNo)=0;
-            switch(checkWord())
+            switch(checkWord(charNo))
             {
                 case CORRECT:   {
-                    // printf("CONGRATS YOU WON!");
+                    printf("CONGRATS YOU WON!");
                     gameRun = GAME_END_WIN;
                     break;
                 }
@@ -264,6 +236,7 @@ void keyInput (SDL_Event* event, int *charNo){
                     gameRun = GAME_END_LOSE;
                     break;
             }
+            printf("guess no : %d", guessNo);
         }
         break;
     }
