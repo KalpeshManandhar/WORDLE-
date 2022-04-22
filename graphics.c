@@ -1,14 +1,14 @@
-#include "header.h"
-#include "graphics.h"
-#include "input.h"
+#include "headers/header.h"
+#include "headers/graphics.h"
+#include "headers/input.h"
 #include <SDL2/SDL_image.h>
 
 
 #define FPS 60
 #define FRAME_DELAY 1000/FPS
 
-#define WIN_WIDTH 510// 30|80|20|80|20|80|20|80|20|80|30  
-#define WIN_HEIGHT 830  // 540 + 40+ 60+ 20 +60 +20 +60 +20+60+30
+#define WIN_WIDTH 500   // 30|80|10|80|10|80|10|80|10|80|30  
+#define WIN_HEIGHT 600  // 30|80|10|80|10|80|10|80|10|80|10|80|40
 
 typedef struct {
     Uint8 r, g, b;
@@ -17,8 +17,10 @@ const color green = {0, 210, 0};
 const color orange = {210, 150, 20};
 const color grey = {80, 80, 80};  
 
-conditions previous[6][5]; // ={{DEF, DEF,DEF,DEF,DEF},{DEF, DEF,DEF,DEF,DEF},{DEF, DEF,DEF,DEF,DEF},{DEF, DEF,DEF,DEF,DEF},{DEF, DEF,DEF,DEF,DEF},{DEF, DEF,DEF,DEF,DEF}};
+conditions previous[6][5]; 
 
+
+// clean up everything
 void closeEverything(SDL_Texture* texture, SDL_Renderer *renderer, SDL_Window *window)
 {
     SDL_DestroyTexture(texture);
@@ -27,6 +29,8 @@ void closeEverything(SDL_Texture* texture, SDL_Renderer *renderer, SDL_Window *w
     SDL_Quit();
 }
 
+
+// draws the basic 5 x 6 empty boxes
 void drawBoxes(SDL_Renderer *renderer)
 {
     int i,j;
@@ -43,6 +47,7 @@ void drawBoxes(SDL_Renderer *renderer)
     }
 }
 
+// changes the color of guess characters 
 void changeColor(SDL_Renderer *renderer, conditions *cond, int row)
 {
     int i;
@@ -70,6 +75,9 @@ void changeColor(SDL_Renderer *renderer, conditions *cond, int row)
     }
 }
 
+// sets the position of source rectangle for alphabet texture to display a specific alphabet
+// the alphabet.png is loaded on a texture and specific parts of it are rendered according 
+// to the letter 
 void srcPosCharTexture(SDL_Rect * src, char alphabet){
     switch (alphabet)
     {
@@ -208,6 +216,8 @@ void srcPosCharTexture(SDL_Rect * src, char alphabet){
     }
 }
 
+
+// displays the letters of current guess and previous guesses 
 void displayCharacters(SDL_Texture * alphaTexture, SDL_Renderer * renderer){
     int i,j;
     SDL_Rect src, dest;
@@ -215,6 +225,7 @@ void displayCharacters(SDL_Texture * alphaTexture, SDL_Renderer * renderer){
     src.w = 80;
     dest.h = 80;
     dest.w = 80;
+    // for previous guesses
     for (i=0;i< guessNo;i++){
         for (j=0; j<5; j++){
             srcPosCharTexture(&src, guesses[i][j]);
@@ -223,6 +234,7 @@ void displayCharacters(SDL_Texture * alphaTexture, SDL_Renderer * renderer){
             SDL_RenderCopy(renderer, alphaTexture, &src , &dest);
         }
     }
+    // for current guess
     for (j=0; j<5; j++){
         if (guessWord[j] == '\0')
             break;
@@ -234,6 +246,7 @@ void displayCharacters(SDL_Texture * alphaTexture, SDL_Renderer * renderer){
 
 }
 
+// main game loop
 int gameLoop(int argc, char **argv){
     
     if (SDL_Init(SDL_INIT_VIDEO)!=0)
@@ -257,9 +270,11 @@ int gameLoop(int argc, char **argv){
         SDL_PollEvent(&event);
         switch (event.type)
         {
+        // exit case
         case SDL_QUIT:
             closeEverything(texture, renderer, window);
             break;
+        // if input is detected
         case SDL_KEYDOWN:{
             if (gameRun != GAME_END_WIN && gameRun != GAME_END_LOSE)
                 keyInput(&event,&charNo);
@@ -269,15 +284,25 @@ int gameLoop(int argc, char **argv){
         }
         
         frameStart = SDL_GetTicks();
+        // draws background
         SDL_SetRenderDrawColor(renderer, 31, 31, 31, 0);
         SDL_RenderClear(renderer);
+
+        // draws the 5 x 6 boxes
         drawBoxes(renderer);
+
+        // changes color of boxes for previous guesses
         for (i=0; i< guessNo; i++)
         {
             changeColor(renderer,previous[i], i);
         }
+
+        // displays the letters 
         displayCharacters(texture, renderer);
+
+        // renders from backbuffer to present
         SDL_RenderPresent(renderer);
+
         frameTime = SDL_GetTicks() - frameStart;
         if (FRAME_DELAY > frameTime)
             SDL_Delay(FRAME_DELAY- frameTime);
