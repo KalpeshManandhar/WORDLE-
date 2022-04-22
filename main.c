@@ -107,7 +107,10 @@ int checkWord(int *charNo)
             (*charNo)=0;
             compare(&guess[0]);
             for (i=0; i<5; i++)
+            {
+                guesses[guessNo][i] = guessWord[i]; 
                 previous[guessNo][i].condition = guess[i].condition;
+            }
             guessNo++;
             break;
         }

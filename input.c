@@ -2,7 +2,7 @@
 #include "header.h"
 
 int gameRun = 1;
-char guessWord[6];
+char guessWord[6] = "";
 char guesses[6][6] = {"", "", "", "", "", ""};
 
 void keyInput (SDL_Event* event, int *charNo){
@@ -237,13 +237,16 @@ void keyInput (SDL_Event* event, int *charNo){
                     break;
             }
             printf("guess no : %d", guessNo);
+            for (i=0; i<5; i++){
+                guessWord[i] = '\0';
+            }
+
         }
         break;
     }
     case SDLK_BACKSPACE:{
         if ((*charNo)>0){
             (*charNo)--;
-            guesses[guessNo-1][*charNo] = '\0';
             guessWord[*charNo] = '\0';
         }
         break;
