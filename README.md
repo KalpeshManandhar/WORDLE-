@@ -1,6 +1,7 @@
 # WORDLE-
 a wordle like game using c
 also an attempt at learning SDL
+(probably not very good code)
 
 to compile:
 1. make sure to include the required SDL header files and libraries (including SDL_Image ones) in folders /include and /lib 
